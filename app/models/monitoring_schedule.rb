@@ -1,0 +1,2 @@
+class MonitoringSchedule < ApplicationRecord
+end

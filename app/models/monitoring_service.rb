@@ -1,0 +1,2 @@
+class MonitoringService < ApplicationRecord
+end
