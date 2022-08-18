@@ -13,7 +13,9 @@ class MonitoringSchedulesController < ApplicationController
     today_week = params[:week].present? && params[:week].to_i.positive? ? params[:week].to_i : Time.zone.today.strftime('%U').to_i
     monitoring_schedule = MonitoringService.find(params[:id])
     monitoring_schedule = {
-      contrats: format_monitoring_service_display(monitoring_schedule, today_week)
+      contrats: format_monitoring_service_display(monitoring_schedule, today_week),
+      id: monitoring_schedule.id,
+      company_name: monitoring_schedule.company_name
     }
     render json: monitoring_schedule
   end

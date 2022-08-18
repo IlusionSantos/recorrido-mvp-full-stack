@@ -21,17 +21,17 @@ class AvailabilitySchedulesController < ApplicationController
         day: availability_schedule_params[:day],
         week: availability_schedule_params[:week],
         monitoring_services_id: availability_schedule_params[:monitoring_services_id],
-        users_id: availability_schedule_params[:users_id]
+        users_id: availability_schedule_params[:users_id],
+        hour: availability_schedule_params[:hour]
       )
-
-      @availability_schedule.update(hour: availability_schedule_params[:hour])
 
     else
       @availability_schedule = AvailabilitySchedule.find_by(
         day: availability_schedule_params[:day],
         week: availability_schedule_params[:week],
         monitoring_services_id: availability_schedule_params[:monitoring_services_id],
-        users_id: availability_schedule_params[:users_id]
+        users_id: availability_schedule_params[:users_id],
+        hour: availability_schedule_params[:hour]
       )
 
       @availability_schedule = @availability_schedule.destroy if @availability_schedule.present?

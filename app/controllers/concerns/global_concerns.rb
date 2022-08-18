@@ -97,7 +97,7 @@ module GlobalConcerns
     hours_array
   end
 
-  def generate_hour_range_display(start_hour, hour_per_day, week, monitoring_services_id, _day)
+  def generate_hour_range_display(start_hour, hour_per_day, week, monitoring_services_id, day)
     hours_array = []
     i = 0
     while hour_per_day > i
@@ -105,7 +105,7 @@ module GlobalConcerns
                          hour_range: "#{range_format(start_hour, i)}:00 - #{range_format(start_hour, i, true)}:00",
 
                          user_name: MonitoringSchedule.find_by(monitoring_services_id: monitoring_services_id,
-                                                               week: week, hour: "#{range_format(start_hour, i)}:00:00")&.user&.first_name,
+                                                               week: week, day: day, hour: "#{range_format(start_hour, i)}:00:00")&.user&.first_name,
                          hour: range_format(start_hour, i)
                        })
       i += 1
