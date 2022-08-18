@@ -16,10 +16,9 @@ class MonitoringServicesController < ApplicationController
 
   # GET /monitoring_services/1
   def show
+    today_week = params[:week].present? && params[:week].to_i.positive? ? params[:week].to_i : Time.zone.today.strftime('%U').to_i
     @monitoring_service = {
-      contrats: format_monitoring_service(@monitoring_service),
-      id: @monitoring_service.id,
-      company_name: @monitoring_service.company_name
+      contrats: format_monitoring_service(@monitoring_service, today_week)
     }
 
     render json: @monitoring_service
