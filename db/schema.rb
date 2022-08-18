@@ -16,11 +16,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_16_081618) do
 
   create_table "availability_schedules", force: :cascade do |t|
     t.integer "week"
+    t.integer "day"
     t.time "hour"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "monitoring_services_id"
     t.bigint "users_id"
+    t.index ["day"], name: "index_availability_schedules_on_day"
     t.index ["monitoring_services_id"], name: "index_availability_schedules_on_monitoring_services_id"
     t.index ["users_id"], name: "index_availability_schedules_on_users_id"
     t.index ["week"], name: "index_availability_schedules_on_week"
@@ -39,11 +41,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_16_081618) do
 
   create_table "monitoring_schedules", force: :cascade do |t|
     t.integer "week"
+    t.integer "day"
     t.time "hour"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "monitoring_services_id"
     t.bigint "users_id"
+    t.index ["day"], name: "index_monitoring_schedules_on_day"
     t.index ["monitoring_services_id"], name: "index_monitoring_schedules_on_monitoring_services_id"
     t.index ["users_id"], name: "index_monitoring_schedules_on_users_id"
     t.index ["week"], name: "index_monitoring_schedules_on_week"
