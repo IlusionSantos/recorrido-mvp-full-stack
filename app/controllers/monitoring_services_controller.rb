@@ -1,11 +1,19 @@
 class MonitoringServicesController < ApplicationController
-  before_action :set_monitoring_service, only: %i[ show update destroy ]
+  before_action :set_monitoring_service, only: %i[show update destroy]
 
   # GET /monitoring_services
   def index
     @monitoring_services = MonitoringService.all
-
-    render json: @monitoring_services
+    @monitoring_services = @monitoring_services.map do |monitoring_service|
+      {
+        contrats: format_monitoring_service(monitoring_service),
+        id: monitoring_service.id,
+        company_name: monitoring_service.company_name,
+        total_hours: monitoring_service.total_hours
+      }
+    end
+    @weeks = format_weeks
+    render json: { monitoring_services: @monitoring_services, weeks: @weeks }
   end
 
   # GET /monitoring_services/1
@@ -39,13 +47,14 @@ class MonitoringServicesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_monitoring_service
-      @monitoring_service = MonitoringService.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def monitoring_service_params
-      params.fetch(:monitoring_service, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_monitoring_service
+    @monitoring_service = MonitoringService.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def monitoring_service_params
+    params.require(:monitoring_service).permit(:company_name, :total_hours)
+  end
 end
