@@ -1,7 +1,7 @@
 class CreateMonitoringSchedules < ActiveRecord::Migration[7.0]
   def change
     create_table :monitoring_schedules do |t|
-      t.date :date, index: true
+      t.integer :week, index: true
       t.time :hour
       t.timestamps
     end

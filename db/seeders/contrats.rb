@@ -2,7 +2,7 @@ x = 1
 
 5.times do
   entity_model = Contrat.new
-  entity_model.day = 'Lunes'
+  entity_model.day = 1
   entity_model.start_hour = '19:00'
   entity_model.end_hour = '00:00'
   entity_model.monitoring_services_id = x
@@ -16,7 +16,7 @@ p 'Monday'
 x = 1
 5.times do
   entity_model = Contrat.new
-  entity_model.day = 'Martes'
+  entity_model.day = 2
   entity_model.start_hour = '19:00'
   entity_model.end_hour = '00:00'
   entity_model.monitoring_services_id = x
@@ -30,7 +30,7 @@ p 'Tuesday'
 x = 1
 5.times do
   entity_model = Contrat.new
-  entity_model.day = 'Miercoles'
+  entity_model.day = 3
   entity_model.start_hour = '19:00'
   entity_model.end_hour = '00:00'
   entity_model.monitoring_services_id = x
@@ -44,7 +44,7 @@ p 'Wednesday'
 x = 1
 5.times do
   entity_model = Contrat.new
-  entity_model.day = 'Jueves'
+  entity_model.day = 4
   entity_model.start_hour = '19:00'
   entity_model.end_hour = '00:00'
   entity_model.monitoring_services_id = x
@@ -58,7 +58,7 @@ p 'Thursday'
 x = 1
 5.times do
   entity_model = Contrat.new
-  entity_model.day = 'Viernes'
+  entity_model.day = 5
   entity_model.start_hour = '19:00'
   entity_model.end_hour = '00:00'
   entity_model.monitoring_services_id = x
@@ -73,7 +73,7 @@ x = 1
 5.times do
   entity_model = Contrat.new
 
-  entity_model.day = 'Sabado'
+  entity_model.day = 6
   entity_model.start_hour = '10:00'
   entity_model.end_hour = '00:00'
   entity_model.monitoring_services_id = x
@@ -87,7 +87,7 @@ p 'Saturday'
 x = 1
 5.times do
   entity_model = Contrat.new
-  entity_model.day = 'Domingo'
+  entity_model.day = 7
   entity_model.start_hour = '10:00'
   entity_model.end_hour = '00:00'
   entity_model.monitoring_services_id = x

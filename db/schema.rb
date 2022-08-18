@@ -15,19 +15,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_16_081618) do
   enable_extension "plpgsql"
 
   create_table "availability_schedules", force: :cascade do |t|
-    t.date "day"
+    t.integer "week"
     t.time "hour"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "monitoring_services_id"
     t.bigint "users_id"
-    t.index ["day"], name: "index_availability_schedules_on_day"
     t.index ["monitoring_services_id"], name: "index_availability_schedules_on_monitoring_services_id"
     t.index ["users_id"], name: "index_availability_schedules_on_users_id"
+    t.index ["week"], name: "index_availability_schedules_on_week"
   end
 
   create_table "contrats", force: :cascade do |t|
-    t.string "day"
+    t.integer "day"
     t.time "start_hour"
     t.time "end_hour"
     t.datetime "created_at", null: false
@@ -38,15 +38,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_16_081618) do
   end
 
   create_table "monitoring_schedules", force: :cascade do |t|
-    t.date "date"
+    t.integer "week"
     t.time "hour"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "monitoring_services_id"
     t.bigint "users_id"
-    t.index ["date"], name: "index_monitoring_schedules_on_date"
     t.index ["monitoring_services_id"], name: "index_monitoring_schedules_on_monitoring_services_id"
     t.index ["users_id"], name: "index_monitoring_schedules_on_users_id"
+    t.index ["week"], name: "index_monitoring_schedules_on_week"
   end
 
   create_table "monitoring_services", force: :cascade do |t|
