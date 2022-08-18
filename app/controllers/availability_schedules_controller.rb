@@ -15,9 +15,42 @@ class AvailabilitySchedulesController < ApplicationController
 
   # POST /availability_schedules
   def create
-    @availability_schedule = AvailabilitySchedule.new(availability_schedule_params)
+    @availability_schedule = nil
+    if params[:value]
+      @availability_schedule = AvailabilitySchedule.find_or_create_by(
+        day: availability_schedule_params[:day],
+        week: availability_schedule_params[:week],
+        monitoring_services_id: availability_schedule_params[:monitoring_services_id],
+        users_id: availability_schedule_params[:users_id]
+      )
 
-    if @availability_schedule.save
+      @availability_schedule.update(hour: availability_schedule_params[:hour])
+
+    else
+      @availability_schedule = AvailabilitySchedule.find_by(
+        day: availability_schedule_params[:day],
+        week: availability_schedule_params[:week],
+        monitoring_services_id: availability_schedule_params[:monitoring_services_id],
+        users_id: availability_schedule_params[:users_id]
+      )
+
+      @availability_schedule = @availability_schedule.destroy if @availability_schedule.present?
+
+    end
+
+    if @availability_schedule.present?
+      @availability_schedule = {
+        availability_schedule: @availability_schedule,
+        line_class: available?(
+          @availability_schedule.hour,
+          @availability_schedule.week,
+          @availability_schedule.monitoring_services_id,
+          @availability_schedule.day
+        )
+      }
+    end
+
+    if @availability_schedule
       render json: @availability_schedule, status: :created, location: @availability_schedule
     else
       render json: @availability_schedule.errors, status: :unprocessable_entity
@@ -47,6 +80,6 @@ class AvailabilitySchedulesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def availability_schedule_params
-    params.require(:availability_schedule).permit(:week, :hour, :users_id, :monitoring_services_id)
+    params.require(:availability_schedule).permit(:week, :hour, :day, :users_id, :monitoring_services_id)
   end
 end

@@ -6,10 +6,8 @@ class MonitoringServicesController < ApplicationController
     @monitoring_services = MonitoringService.all
     @monitoring_services = @monitoring_services.map do |monitoring_service|
       {
-        contrats: format_monitoring_service(monitoring_service),
         id: monitoring_service.id,
-        company_name: monitoring_service.company_name,
-        total_hours: monitoring_service.total_hours
+        company_name: monitoring_service.company_name
       }
     end
     @weeks = format_weeks
@@ -18,6 +16,12 @@ class MonitoringServicesController < ApplicationController
 
   # GET /monitoring_services/1
   def show
+    @monitoring_service = {
+      contrats: format_monitoring_service(@monitoring_service),
+      id: @monitoring_service.id,
+      company_name: @monitoring_service.company_name
+    }
+
     render json: @monitoring_service
   end
 
