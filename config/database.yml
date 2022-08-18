@@ -23,7 +23,10 @@ default: &default
 
 development:
   <<: *default
-  database: recorrido_mvp_development
+  username: <%= Rails.application.credentials.development[:username] %>
+  password: <%= Rails.application.credentials.development[:password] %>
+  host: <%= Rails.application.credentials.development[:host] %>
+  database: <%= Rails.application.credentials.development[:database] %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -55,9 +58,13 @@ development:
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
+
 test:
   <<: *default
-  database: recorrido_mvp_test
+  username: <%= Rails.application.credentials.test[:username] %>
+  password: <%= Rails.application.credentials.test[:password] %>
+  host: <%= Rails.application.credentials.test[:host] %>
+  database: <%= Rails.application.credentials.test[:database] %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -79,8 +86,10 @@ test:
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
+
 production:
   <<: *default
-  database: recorrido_mvp_production
-  username: recorrido_mvp
-  password: <%= ENV["RECORRIDO_MVP_DATABASE_PASSWORD"] %>
+  username: <%= Rails.application.credentials.production[:username] %>
+  password: <%= Rails.application.credentials.production[:password] %>
+  host: <%= Rails.application.credentials.production[:host] %>
+  database: <%= Rails.application.credentials.production[:database] %>
