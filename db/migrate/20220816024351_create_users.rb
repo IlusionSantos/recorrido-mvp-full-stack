@@ -1,9 +1,9 @@
 class CreateUsers < ActiveRecord::Migration[7.0]
   def change
     create_table :users do |t|
-      t.string :fist_name
+      t.string :first_name, index: true
       t.string :last_name
-
+      t.string :role
       t.timestamps
     end
   end
