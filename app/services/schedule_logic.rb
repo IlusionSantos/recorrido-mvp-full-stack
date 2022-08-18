@@ -13,7 +13,7 @@ class ScheduleLogic
 
   def find_user_with_major_disponibilty
     day = 1
-    while day < 7
+    while day <= 7
       list_users_available = list_by_user_available(day)
       average = average_total_hours(list_users_available.length)
       set_users_with_most_available(list_users_available, average)
@@ -45,9 +45,10 @@ class ScheduleLogic
           week: @week,
           hour: "#{start_time}:00"
         )
-        schedule.update(
+        schedule.update!(
           users_id: user_by_hour(day, "#{start_time}:00")
         )
+        p user_by_hour(day, "#{start_time}:00")
         @schedules.push(schedule)
       end
       start_time += 1
@@ -74,7 +75,7 @@ class ScheduleLogic
 
     user_available = nil
     users.each do |user|
-      user_available = @max_available[:id] if user.users_id == @max_available[:id]
+      return user_available = @max_available[:id].to_i if user.users_id == @max_available[:id].to_i
     end
 
     user_available = users.first.users_id if users.present? && user_available.blank?
