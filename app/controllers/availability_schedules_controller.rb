@@ -1,5 +1,5 @@
 class AvailabilitySchedulesController < ApplicationController
-  before_action :set_availability_schedule, only: %i[ show update destroy ]
+  before_action :set_availability_schedule, only: %i[show update destroy]
 
   # GET /availability_schedules
   def index
@@ -39,13 +39,14 @@ class AvailabilitySchedulesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_availability_schedule
-      @availability_schedule = AvailabilitySchedule.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def availability_schedule_params
-      params.fetch(:availability_schedule, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_availability_schedule
+    @availability_schedule = AvailabilitySchedule.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def availability_schedule_params
+    params.require(:availability_schedule).permit(:week, :hour, :users_id, :monitoring_services_id)
+  end
 end
