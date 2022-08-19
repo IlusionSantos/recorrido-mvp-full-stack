@@ -63,7 +63,7 @@ En este se utilizo para el despliegue de la vista final con los servicios
 
 ##### monitoring_services_controller
 
-Brinda una estructura para la configuración de services en los dropdowns
+Brinda una estructura para la configuración de services y devuelve a su vez las semanas disponibles
 
 ## Ejecución
 
