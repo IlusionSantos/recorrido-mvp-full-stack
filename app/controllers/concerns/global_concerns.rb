@@ -86,8 +86,8 @@ module GlobalConcerns
                          hour_range: "#{range_format(start_hour, i)}:00 - #{range_format(start_hour, i, true)}:00",
                          hour: range_format(start_hour, i),
                          users: User.all.map do |_user|
-                                  { id: _user.id, value: available_by_user?("#{range_format(start_hour, i)}:00:00", week, monitoring_services_id,
-                                                                            day, _user.id) }
+                                  { id: _user.id, user_colors: _user.colors, value: available_by_user?("#{range_format(start_hour, i)}:00:00", week, monitoring_services_id,
+                                                                                                       day, _user.id) }
                                 end,
                          line_class: available?("#{range_format(start_hour, i)}:00:00", week, monitoring_services_id,
                                                 day)
@@ -101,12 +101,15 @@ module GlobalConcerns
     hours_array = []
     i = 0
     while hour_per_day > i
+      user = MonitoringSchedule.find_by(monitoring_services_id: monitoring_services_id,
+                                        week: week, day: day, hour: "#{range_format(start_hour, i)}:00:00")
       hours_array.push({
                          hour_range: "#{range_format(start_hour, i)}:00 - #{range_format(start_hour, i, true)}:00",
-
-                         user_name: MonitoringSchedule.find_by(monitoring_services_id: monitoring_services_id,
-                                                               week: week, day: day, hour: "#{range_format(start_hour, i)}:00:00")&.user&.first_name,
-                         hour: range_format(start_hour, i)
+                         user_name: user&.user&.first_name,
+                         user_color: user&.user&.colors,
+                         hour: range_format(start_hour, i),
+                         line_class: available_monitoring?("#{range_format(start_hour, i)}:00:00", week, monitoring_services_id,
+                                                           day)
                        })
       i += 1
     end
@@ -124,6 +127,15 @@ module GlobalConcerns
   def available?(start_hour, week, monitoring_services_id, day)
     if AvailabilitySchedule.exists?(monitoring_services_id: monitoring_services_id, week: week, day: day,
                                     hour: start_hour)
+      'has-background-success'
+    else
+      'has-background-danger'
+    end
+  end
+
+  def available_monitoring?(start_hour, week, monitoring_services_id, day)
+    if MonitoringSchedule.exists?(monitoring_services_id: monitoring_services_id, week: week, day: day,
+                                  hour: start_hour)
       'has-background-success'
     else
       'has-background-danger'
