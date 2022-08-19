@@ -7,53 +7,63 @@ En el siguiente repositorio encontrara los archivos necesarios para ejecutar la 
 El proyecto tiene la siguiente estructura
 
 ```
-RECORRIDO-MVP-VIEWS
+RECORRIDO-MVP
 │   README.md
-│   babel.config.js
-│   jsconfig.json
-│   package.json
-│   vue.config.js
-│   yarn.lock.json
+│   .rubocop.yml
+│   .ruby-version
+│   Gemfile
+│   Gemfile.lock
 │
+└─── app
+    └───controllers
+        │   availability_schedules_controller.rb
+        │   contrats_controller.rb
+        │   monitoring_schedules_controller.rb
+        │   monitoring_services_controller.rb
+        │   users_controller.rb
+    └───models
+        │   availability_schedule.rb
+        │   contrat.rb
+        │   monitoring_schedule.rb
+        │   monitoring_service.rb
+        │   users_controller.rb
+    └───services
+        │   schedule_logic.rb
+└─── bin
+└─── config
+└─── db
+└─── lib
+└─── log
 └─── public
-└─── src
-    │   App.vue
-    │   main.js
-        └───assets
-        │   alert.png
-            └───sass
-        └───components
-        │   CustomTable.vue
-        │   ListTable.vue
-        │   MainNav.vue
-        └───router
-        │   index.js
-        └───views
-            └───Schedules
-            │   AvailabilityView.vue
-            │   MonitoringView.vue
+└─── spect
+└─── storage
+└─── test
+└─── temp
+└─── vendor
 
 ```
 
 La estructura mostrada anteriormente ha sido acortada a los archivos que se utilizan en el project.
 
-### Views
+### Files
 
-##### AvailabilityView.vue
+##### schedule_logic.rb
 
-En este archivo se encuentra toda la logica y estrucura de la vista que permite editar la disponibilidad de las personas.
+Es el archivo principal, es el encargado de la asignación de las disponibildiades a la vista final, esta es una clase la cual se inicia con `week`, `services` y se declaran dos variables a utilizar entre los métodos `max_available` y `schedules`
 
-##### MonitoringView.vue
+El algoritmo implementado trata de buscar el usuario que tiene mayor disponibilidad por día a partir de este comienza a evaluar los espacios al rededor y deja de lado a este usuario.
 
-En este archivo se encuentra toda la logica y estrucura de la vista que permite visualizar la disponibilidad de las personas.
+##### availability_schedules_controller
 
-##### App.vue
+En este se utilizo para la creación de cada record cuando una persona indica que esta disponible la ruta
 
-La vista principal contiene un `<router-view>` en el cual se cargan las demás vistas
+##### monitoring_schedules_controller
 
-##### CustomTable.vue y ListTable.vue
+En este se utilizo para el despliegue de la vista final con los servicios
 
-Ambos son componentes que le dan estructura a como se despliegan la información en AvailabilityView.vue y MonitoringView.vue
+##### monitoring_services_controller
+
+Brinda una estructura para la configuración de services en los dropdowns
 
 ## Ejecución
 
